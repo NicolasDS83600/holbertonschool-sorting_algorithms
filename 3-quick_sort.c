@@ -1,50 +1,42 @@
 #include "sort.h"
 
 /**
- * swap_int - Swap two integers
- * @a: first int
- * @b: second int
- */
-void swap_int(int *a, int *b)
-{
-int tmp = *a;
-*a = *b;
-*b = tmp;
-}
-
-/**
- * lomuto_partition - Lomuto partition scheme
- * @array: array to sort
- * @low: start index
- * @high: end index (pivot)
- * @size: array size (for printing)
- * Return: pivot index after partition
- */
+* lomuto_partition - Lomuto partition scheme
+* @array: array to sort
+* @low: start index
+* @high: end index (pivot)
+* @size: array size (for printing)
+* Return: pivot index after partition
+*/
 int lomuto_partition(int *array, int low, int high, size_t size)
 {
-int pivot = array[high];
-int i = low, j;
+	int pivot = array[high];
+	int i = low, j, tmp;
 
-for (j = low; j < high; j++)
-{
-if (array[j] < pivot)
-{
-i++;
-if (i != j)
-{
-swap_int(&array[i], &array[j]);
-print_array(array, size);
-}
-}
-}
+	for (j = low; j < high; j++)
+	{
+		if (array[j] < pivot)
+		{
+			if (i != j)
+			{
+				tmp = array[i];
+				array[i] = array[j];
+				array[j] = tmp;
+				print_array(array, size);
+			}
+			i++;
+		}
+	}
 
-if (i + 1 != high)
-{
-swap_int(&array[i + 1], &array[high]);
-print_array(array, size);
-}
+	if (array[i] != array[high])
+	{
+		tmp = array[i];
+		array[i] = array[high];
+		array[high] = tmp;
+		print_array(array, size);
+	}
 
-return (i + 1);
+return (i);
 }
 
 /**
